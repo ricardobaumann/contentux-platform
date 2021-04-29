@@ -1,14 +1,4 @@
 server:
   port: 8080
-
-spring:
-  security:
-    basic:
-      enabled: true
-    user:
-      name: admin
-      password: admin
-      role: EXAMPLE
-
   datasource:
     driver-class-name: org.postgresql.Driver
