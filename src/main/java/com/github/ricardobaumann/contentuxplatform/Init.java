@@ -21,6 +21,7 @@ public class Init implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        courseController.deleteAll();
         courseController.save(Course.builder().title("first course").build());
     }
 }
