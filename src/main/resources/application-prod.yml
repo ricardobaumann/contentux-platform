@@ -1,0 +1,9 @@
+server:
+  port: 80
+
+spring:
+  datasource:
+    url: jdbc:postgresql://contentux-db.cuv72rlqno5g.eu-west-1.rds.amazonaws.com:5432/postgres
+    password: poy0NpvBQZLrPRkHJwi7
+    hikari:
+      connection-timeout: 10000

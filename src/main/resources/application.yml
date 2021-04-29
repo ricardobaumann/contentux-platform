@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+spring:
+  security:
+    basic:
+      enabled: true
+    user:
+      name: admin
+      password: admin
+      role: EXAMPLE
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: changeme
+    jpa:
+      show-sql: true
+      database: postgresql
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
+      open-in-view: false
