@@ -7,16 +7,22 @@
 
 package com.github.ricardobaumann.contentuxplatform.entity;
 
-import lombok.Data;
+import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id", callSuper = false)
+@EntityListeners(AuditingEntityListener.class)
 @Data
 @Entity
 @Table(name = "course_class")
-public class CourseClass {
-  
+public class CourseClass extends Audit {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

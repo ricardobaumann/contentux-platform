@@ -9,6 +9,7 @@ package com.github.ricardobaumann.contentuxplatform.entity;
 
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -33,5 +34,13 @@ public class Course extends Audit {
     @CollectionTable(name = "course_tags", joinColumns = @JoinColumn(name = "course_id"))
     @Column(name = "tag")
     private Set<String> tags;
+
+    @RestResource
+    @ManyToMany(cascade = CascadeType.REMOVE)
+    @JoinTable(
+            name = "course_class_links",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_class_id"))
+    Set<CourseClass> courseClasses;
 
 }

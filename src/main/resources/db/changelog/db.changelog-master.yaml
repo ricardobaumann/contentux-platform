@@ -74,4 +74,99 @@ databaseChangeLog:
                   type: varchar(50)
                   constraints:
                     - nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp
+              - column:
+                  name: modified_at
+                  type: timestamp
+              - column:
+                  name: created_by
+                  type: varchar(100)
+              - column:
+                  name: modified_by
+                  type: varchar(100)
             tableName: course_tags
+
+  - changeSet:
+      id: create-course-class
+      author: rick
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    - primaryKey: true
+              - column:
+                  name: title
+                  type: varchar(100)
+                  constraints:
+                    - nullable: false
+              - column:
+                  name: body
+                  type: text
+            tableName: course_class
+
+        - createTable:
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    - primaryKey: true
+              - column:
+                  name: course_id
+                  type: integer
+                  constraints:
+                    - nullable: false
+                    - references: course
+                    - foreignKeyName: "fk-course-class-link-course"
+              - column:
+                  name: course_class_id
+                  type: integer
+                  constraints:
+                    - nullable: false
+                    - references: course_class
+                    - foreignKeyName: "fk-course-class-link-class"
+            tableName: course_class_links
+
+        - createIndex:
+            columns:
+              - column:
+                  name: course_id
+            indexName: idx_course_class_course
+            tableName: course_class_links
+
+        - createIndex:
+            columns:
+              - column:
+                  name: course_class_id
+            indexName: idx_course_class_class
+            tableName: course_class_links
+
+  - changeSet:
+      id: add-course-class-auditing
+      author: rick
+      changes:
+        - addColumn:
+            tableName: course_class
+            columns:
+              name: created_at
+              type: timestamp
+        - addColumn:
+            tableName: course_class
+            columns:
+              name: created_by
+              type: varchar(100)
+        - addColumn:
+            tableName: course_class
+            columns:
+              name: modified_at
+              type: timestamp
+        - addColumn:
+            tableName: course_class
+            columns:
+              name: modified_by
+              type: varchar(100)
