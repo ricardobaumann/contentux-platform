@@ -1,4 +1,16 @@
 server:
   port: 8080
+spring:
   datasource:
     driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: changeme
+    jpa:
+      show-sql: true
+      database: postgresql
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
+      open-in-view: false
+
+  jpa:
+    show-sql: true

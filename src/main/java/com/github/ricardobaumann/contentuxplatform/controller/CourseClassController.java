@@ -5,11 +5,12 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package com.github.ricardobaumann.contentuxplatform;
+package com.github.ricardobaumann.contentuxplatform.controller;
 
+import com.github.ricardobaumann.contentuxplatform.entity.CourseClass;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
-public interface CourseController extends CrudRepository<Course, Long> {
+public interface CourseClassController extends CrudRepository<CourseClass, Long> {
 }
