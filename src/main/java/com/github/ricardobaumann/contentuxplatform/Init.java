@@ -7,6 +7,8 @@
 
 package com.github.ricardobaumann.contentuxplatform;
 
+import com.github.ricardobaumann.contentuxplatform.controller.CourseController;
+import com.github.ricardobaumann.contentuxplatform.entity.Course;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -20,7 +22,7 @@ public class Init implements CommandLineRunner {
     private final CourseController courseController;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         courseController.deleteAll();
         courseController.save(Course.builder().title("first course").build());
     }

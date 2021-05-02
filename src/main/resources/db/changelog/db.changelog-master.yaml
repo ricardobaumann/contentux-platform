@@ -1,15 +1,15 @@
 databaseChangeLog:
   - changeSet:
-      id:  createTable-example
-      author:  liquibase-docs
+      id: createTable-example
+      author: liquibase-docs
       changes:
-        -  createTable:
-             columns:
-               -  column:
-                    name: address
-                    type: varchar(255)
-             schemaName: public
-             tableName: person
+        - createTable:
+            columns:
+              - column:
+                  name: address
+                  type: varchar(255)
+            schemaName: public
+            tableName: person
   - changeSet:
       id: create-course-table
       author: me
@@ -27,3 +27,51 @@ databaseChangeLog:
                   constraints:
                     - nullable: false
             tableName: course
+  - changeSet:
+      id: add-course-auditing
+      author: rick
+      changes:
+        - addColumn:
+            tableName: course
+            columns:
+              name: created_at
+              type: timestamp
+        - addColumn:
+            tableName: course
+            columns:
+              name: created_by
+              type: varchar(100)
+        - addColumn:
+            tableName: course
+            columns:
+              name: modified_at
+              type: timestamp
+        - addColumn:
+            tableName: course
+            columns:
+              name: modified_by
+              type: varchar(100)
+  - changeSet:
+      id: create-course-tags-table
+      author: rick
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    - primaryKey: true
+              - column:
+                  name: course_id
+                  type: integer
+                  constraints:
+                    - nullable: false
+                    - references: course
+                    - foreignKeyName: "fk-course-tags-course"
+              - column:
+                  name: tag
+                  type: varchar(50)
+                  constraints:
+                    - nullable: false
+            tableName: course_tags

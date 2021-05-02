@@ -5,8 +5,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package com.github.ricardobaumann.contentuxplatform;
+package com.github.ricardobaumann.contentuxplatform.controller;
 
+import com.github.ricardobaumann.contentuxplatform.entity.Course;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

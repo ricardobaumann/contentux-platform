@@ -5,15 +5,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package com.github.ricardobaumann.contentuxplatform;
+package com.github.ricardobaumann.contentuxplatform.controller;
 
+import com.github.ricardobaumann.contentuxplatform.Test;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class TestController {
-    //db password poy0NpvBQZLrPRkHJwi7 postgres
-    //contentux-db.cuv72rlqno5g.eu-west-1.rds.amazonaws.com
     @GetMapping("/test")
     public Test test() {
         return new Test("hello world");
