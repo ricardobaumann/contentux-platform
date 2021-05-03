@@ -170,3 +170,5 @@ databaseChangeLog:
             columns:
               name: modified_by
               type: varchar(100)
+  - include:
+      file: db/changelog/db.changelog-user-crud.yaml
