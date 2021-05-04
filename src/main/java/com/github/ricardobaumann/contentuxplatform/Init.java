@@ -9,7 +9,7 @@ package com.github.ricardobaumann.contentuxplatform;
 
 import com.github.ricardobaumann.contentuxplatform.controller.CourseClassController;
 import com.github.ricardobaumann.contentuxplatform.controller.CourseController;
-import com.github.ricardobaumann.contentuxplatform.controller.UserController;
+import com.github.ricardobaumann.contentuxplatform.controller.UserRepository;
 import com.github.ricardobaumann.contentuxplatform.entity.Course;
 import com.github.ricardobaumann.contentuxplatform.entity.CourseClass;
 import com.github.ricardobaumann.contentuxplatform.entity.User;
@@ -27,14 +27,15 @@ public class Init implements CommandLineRunner {
 
     private final CourseController courseController;
     private final CourseClassController courseClassController;
-    private final UserController userController;
+    private final UserRepository userRepository;
 
     @Override
     public void run(String... args) {
 
-        userController.deleteAll();
-        userController.save(User.builder()
+        userRepository.deleteAll();
+        userRepository.save(User.builder()
                 .roles(Set.of("admin", "user"))
+                .password("test")
                 .username("test-user")
                 .build());
 
