@@ -29,6 +29,7 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("ALL")
 @Slf4j
 @Component
 @AllArgsConstructor
