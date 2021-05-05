@@ -55,6 +55,8 @@ public class User extends Audit {
     }
 
     /*
+    curl -i -X POST -d '{"username": "test-user", "password": "test"}' -H "Content-Type: application/json" -H "Accept: application/json"  http://localhost:8080/token
+
      curl -i -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0LXVzZXIiLCJpc3MiOiJjb250ZW50dXgtcGxhdGZvcm0iLCJqdGkiOiJ0ZXN0LXVzZXIifQ.INi9pOUqJPRvMBsVNVAMlPFwYO3FukE57cDWBi0k_cA" http://localhost:8080
 
      */
