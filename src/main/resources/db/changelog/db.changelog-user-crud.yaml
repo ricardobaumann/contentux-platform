@@ -61,5 +61,14 @@ databaseChangeLog:
                   name: role
             indexName: idx_roles_role
             tableName: user_roles
+  - changeSet:
+      id: add-user-password
+      author: rick
+      changes:
+        - addColumn:
+            tableName: platform_user
+            columns:
+              name: password
+              type: varchar(100)
 
 

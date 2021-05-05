@@ -9,8 +9,11 @@ package com.github.ricardobaumann.contentuxplatform.controller;
 
 import com.github.ricardobaumann.contentuxplatform.entity.User;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.stereotype.Repository;
 
-@RepositoryRestResource
-public interface UserController extends CrudRepository<User, Long> {
+import java.util.Optional;
+
+@Repository
+public interface UserRepository extends CrudRepository<User, Long> {
+    Optional<User> findByUsername(String username);
 }
