@@ -14,6 +14,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.Optional;
 
 import static com.github.ricardobaumann.contentuxplatform.service.JwtService.CreateTokenRequest;
@@ -44,7 +45,9 @@ public class AuthService {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class GetTokenRequest {
+        @NotEmpty
         private String username;
+        @NotEmpty
         private String password;
     }
 }

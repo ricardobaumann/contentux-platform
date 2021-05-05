@@ -35,7 +35,7 @@ public class User extends Audit {
     @Column(unique = true)
     private String username;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
     private Set<String> roles;
@@ -53,5 +53,10 @@ public class User extends Audit {
                 password.getBytes(StandardCharsets.UTF_8))
                 .equals(getPassword());
     }
+
+    /*
+     curl -i -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0LXVzZXIiLCJpc3MiOiJjb250ZW50dXgtcGxhdGZvcm0iLCJqdGkiOiJ0ZXN0LXVzZXIifQ.INi9pOUqJPRvMBsVNVAMlPFwYO3FukE57cDWBi0k_cA" http://localhost:8080
+
+     */
 
 }

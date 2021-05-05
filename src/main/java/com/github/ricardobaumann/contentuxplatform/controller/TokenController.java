@@ -16,6 +16,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
+import static com.github.ricardobaumann.contentuxplatform.service.AuthService.GetTokenRequest;
+
 @Slf4j
 @RestController
 @AllArgsConstructor
@@ -24,8 +28,8 @@ public class TokenController {
     private final AuthService authService;
 
     @PostMapping("/token")
-    public ResponseEntity<TokenResponse> getBearerToken(@RequestBody AuthService.GetTokenRequest getTokenRequest) {
-        log.info("received token request: {}", getTokenRequest);
+    public ResponseEntity<TokenResponse> getBearerToken(@RequestBody @Valid GetTokenRequest getTokenRequest) {
+        log.info("Received token request: {}", getTokenRequest);
         return authService.getBearerTokenFor(getTokenRequest)
                 .map(TokenResponse::new)
                 .map(ResponseEntity::ok)
