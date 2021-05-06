@@ -9,13 +9,16 @@ package com.github.ricardobaumann.contentuxplatform;
 
 import com.github.ricardobaumann.contentuxplatform.controller.CourseClassController;
 import com.github.ricardobaumann.contentuxplatform.controller.CourseController;
+import com.github.ricardobaumann.contentuxplatform.controller.MediaRepository;
 import com.github.ricardobaumann.contentuxplatform.controller.UserRepository;
 import com.github.ricardobaumann.contentuxplatform.entity.Course;
 import com.github.ricardobaumann.contentuxplatform.entity.CourseClass;
+import com.github.ricardobaumann.contentuxplatform.entity.Media;
 import com.github.ricardobaumann.contentuxplatform.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
@@ -28,6 +31,7 @@ public class Init implements CommandLineRunner {
     private final CourseController courseController;
     private final CourseClassController courseClassController;
     private final UserRepository userRepository;
+    private final MediaRepository mediaRepository;
 
     @Override
     public void run(String... args) {
@@ -51,6 +55,20 @@ public class Init implements CommandLineRunner {
                 .title("first course")
                 .build()
         );
+        mediaRepository.deleteAll();
+        mediaRepository.save(
+                Media.builder()
+                        .mediaType(MediaType.APPLICATION_ATOM_XML)
+                        .description("test")
+                        .filePath("path")
+                        .description("nice media")
+                        .name("test-media")
+                        .tags(Set.of("tag1", "tag2"))
+                        .build()
+        );
+
+        mediaRepository.findAll()
+                .forEach(media -> log.info(media.toString()));
     }
     /*
     curl -i -X PUT -d "http://localhost:8080/courseClasses/1" -H "Content-Type:text/uri-list" http://localhost:8080/courses/4/courseClasses
