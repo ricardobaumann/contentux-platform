@@ -172,3 +172,5 @@ databaseChangeLog:
               type: varchar(100)
   - include:
       file: db/changelog/db.changelog-user-crud.yaml
+  - include:
+      file: db/changelog/db.changelog-media-crud.yaml

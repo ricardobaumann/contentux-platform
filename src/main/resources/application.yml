@@ -8,6 +8,9 @@ spring:
     password: changeme
   jpa:
     show-sql: true
+  data:
+    rest:
+      basePath: /admin/api
 
 jwt:
   secret: "secret"
