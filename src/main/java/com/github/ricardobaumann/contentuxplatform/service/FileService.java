@@ -7,11 +7,11 @@
 
 package com.github.ricardobaumann.contentuxplatform.service;
 
-import com.github.ricardobaumann.contentuxplatform.controller.MediaRepository;
 import com.github.ricardobaumann.contentuxplatform.entity.Media;
 import com.github.ricardobaumann.contentuxplatform.exceptions.FileUploadException;
 import com.github.ricardobaumann.contentuxplatform.exceptions.MediaNotFoundException;
-import com.github.ricardobaumann.contentuxplatform.repos.FileRepo;
+import com.github.ricardobaumann.contentuxplatform.repos.FileRepository;
+import com.github.ricardobaumann.contentuxplatform.repos.MediaRepository;
 import com.github.ricardobaumann.contentuxplatform.requests.FileUploadRequest;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
@@ -27,12 +27,12 @@ import java.util.Optional;
 @AllArgsConstructor
 public class FileService {
 
-    private final FileRepo fileRepo;
+    private final FileRepository fileRepository;
     private final MediaRepository mediaRepository;
 
     public Either<FileUploadException, Media> upload(FileUploadRequest fileUploadRequest) {
         return mediaRepository.findById(fileUploadRequest.getMediaId())
-                .map(media -> fileRepo.writeFile(fileUploadRequest)
+                .map(media -> fileRepository.writeFile(fileUploadRequest)
                         .map(fileWriteResult -> {
                             media.setFilePath(fileWriteResult.getPath());
                             return mediaRepository.save(media);
@@ -45,6 +45,6 @@ public class FileService {
     public Optional<Resource> getFileResource(Long mediaId) {
         return mediaRepository.findById(mediaId)
                 .map(Media::getFilePath)
-                .flatMap(fileRepo::getFileResourceFor);
+                .flatMap(fileRepository::getFileResourceFor);
     }
 }

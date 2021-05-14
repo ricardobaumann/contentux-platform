@@ -14,7 +14,7 @@ import org.springframework.core.io.Resource;
 
 import java.util.Optional;
 
-public interface FileRepo {
+public interface FileRepository {
     Try<FileWriteResult> writeFile(FileUploadRequest fileUploadRequest);
 
     Optional<Resource> getFileResourceFor(String filePath);

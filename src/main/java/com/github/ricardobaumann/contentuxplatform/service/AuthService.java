@@ -7,8 +7,8 @@
 
 package com.github.ricardobaumann.contentuxplatform.service;
 
-import com.github.ricardobaumann.contentuxplatform.controller.UserRepository;
 import com.github.ricardobaumann.contentuxplatform.entity.User;
+import com.github.ricardobaumann.contentuxplatform.repos.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

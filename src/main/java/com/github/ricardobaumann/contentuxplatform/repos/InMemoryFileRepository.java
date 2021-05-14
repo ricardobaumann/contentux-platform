@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @Slf4j
 @Repository
-public class InMemoryFileRepo implements FileRepo {
+public class InMemoryFileRepository implements FileRepository {
 
     private final Map<String, Resource> resourceMap = new HashMap<>();
 

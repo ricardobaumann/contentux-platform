@@ -7,14 +7,14 @@
 
 package com.github.ricardobaumann.contentuxplatform;
 
-import com.github.ricardobaumann.contentuxplatform.controller.CourseClassController;
-import com.github.ricardobaumann.contentuxplatform.controller.CourseController;
-import com.github.ricardobaumann.contentuxplatform.controller.MediaRepository;
-import com.github.ricardobaumann.contentuxplatform.controller.UserRepository;
 import com.github.ricardobaumann.contentuxplatform.entity.Course;
 import com.github.ricardobaumann.contentuxplatform.entity.CourseClass;
 import com.github.ricardobaumann.contentuxplatform.entity.Media;
 import com.github.ricardobaumann.contentuxplatform.entity.User;
+import com.github.ricardobaumann.contentuxplatform.repos.CourseClassRepository;
+import com.github.ricardobaumann.contentuxplatform.repos.CourseRepository;
+import com.github.ricardobaumann.contentuxplatform.repos.MediaRepository;
+import com.github.ricardobaumann.contentuxplatform.repos.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -28,8 +28,8 @@ import java.util.Set;
 @AllArgsConstructor
 public class Init implements CommandLineRunner {
 
-    private final CourseController courseController;
-    private final CourseClassController courseClassController;
+    private final CourseRepository courseRepository;
+    private final CourseClassRepository courseClassRepository;
     private final UserRepository userRepository;
     private final MediaRepository mediaRepository;
 
@@ -43,15 +43,15 @@ public class Init implements CommandLineRunner {
                 .username("test-user")
                 .build());
 
-        courseController.deleteAll();
-        courseClassController.deleteAll();
+        courseRepository.deleteAll();
+        courseClassRepository.deleteAll();
 
-        courseClassController.save(CourseClass.builder()
+        courseClassRepository.save(CourseClass.builder()
                 .body("some body")
                 .title("x men first class")
                 .build());
 
-        courseController.save(Course.builder()
+        courseRepository.save(Course.builder()
                 .title("first course")
                 .build()
         );
