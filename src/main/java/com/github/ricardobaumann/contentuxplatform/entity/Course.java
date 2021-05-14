@@ -22,6 +22,8 @@ import java.util.Set;
 @Table(name = "course")
 @EqualsAndHashCode(of = "id", callSuper = false)
 @EntityListeners(AuditingEntityListener.class)
+@NamedEntityGraph(name = "Course.dep",
+        attributeNodes = {@NamedAttributeNode("tags"), @NamedAttributeNode("courseClasses")})
 public class Course extends Audit {
 
     @Id

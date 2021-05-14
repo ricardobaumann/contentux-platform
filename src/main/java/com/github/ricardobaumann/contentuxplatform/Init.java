@@ -59,6 +59,10 @@ public class Init implements CommandLineRunner {
                 .title("first course")
                 .build()
         );
+
+        courseRepository.findAll()
+                .forEach(course -> log.info("Course: {}", course));
+
         mediaRepository.deleteAll();
         mediaRepository.save(
                 Media.builder()
