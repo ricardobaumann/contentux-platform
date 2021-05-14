@@ -15,6 +15,7 @@ import com.github.ricardobaumann.contentuxplatform.repos.CourseClassRepository;
 import com.github.ricardobaumann.contentuxplatform.repos.CourseRepository;
 import com.github.ricardobaumann.contentuxplatform.repos.MediaRepository;
 import com.github.ricardobaumann.contentuxplatform.repos.UserRepository;
+import com.github.ricardobaumann.contentuxplatform.service.AuthService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -32,6 +33,7 @@ public class Init implements CommandLineRunner {
     private final CourseClassRepository courseClassRepository;
     private final UserRepository userRepository;
     private final MediaRepository mediaRepository;
+    private final AuthService authService;
 
     @Override
     public void run(String... args) {
@@ -42,6 +44,8 @@ public class Init implements CommandLineRunner {
                 .password("test")
                 .username("test-user")
                 .build());
+
+        log.info("token: {}", authService.getBearerTokenFor(new AuthService.GetTokenRequest("test-user", "test")));
 
         courseRepository.deleteAll();
         courseClassRepository.deleteAll();

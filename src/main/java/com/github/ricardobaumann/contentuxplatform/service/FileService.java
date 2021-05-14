@@ -16,8 +16,10 @@ import com.github.ricardobaumann.contentuxplatform.requests.FileUploadRequest;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import lombok.AllArgsConstructor;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -35,6 +37,11 @@ public class FileService {
                 .map(media -> fileRepository.writeFile(fileUploadRequest)
                         .map(fileWriteResult -> {
                             media.setFilePath(fileWriteResult.getPath());
+                            media.setMediaType(
+                                    Optional.ofNullable(fileUploadRequest.getFile().getContentType())
+                                            .map(MediaType::valueOf)
+                                            .orElse(null)
+                            );
                             return mediaRepository.save(media);
                         }))
                 .orElseGet(() -> Try.failure(new MediaNotFoundException(fileUploadRequest.getMediaId())))
@@ -42,9 +49,22 @@ public class FileService {
                 .mapLeft(FileUploadException::new);
     }
 
-    public Optional<Resource> getFileResource(Long mediaId) {
+    public Optional<MediaFileResource> getFileResource(Long mediaId) {
         return mediaRepository.findById(mediaId)
-                .map(Media::getFilePath)
-                .flatMap(fileRepository::getFileResourceFor);
+                .map(media -> new MediaFileResource(
+                        fileRepository.getFileResourceFor(media.getFilePath())
+                                .orElse(null),
+                        media
+                ));
+    }
+
+    @Value
+    public static class MediaFileResource {
+        Resource resource;
+        Media media;
+
+        public boolean hasFile() {
+            return resource != null;
+        }
     }
 }

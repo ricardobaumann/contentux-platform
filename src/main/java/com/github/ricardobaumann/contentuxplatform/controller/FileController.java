@@ -10,8 +10,10 @@ package com.github.ricardobaumann.contentuxplatform.controller;
 import com.github.ricardobaumann.contentuxplatform.requests.FileUploadRequest;
 import com.github.ricardobaumann.contentuxplatform.service.FileService;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,7 +39,17 @@ public class FileController {
     @GetMapping
     public ResponseEntity<Resource> getFile(@PathVariable Long mediaId) {
         return fileService.getFileResource(mediaId)
-                .map(ResponseEntity::ok)
+                .filter(FileService.MediaFileResource::hasFile)
+                .map(mediaFileResource -> ResponseEntity.ok()
+                        .headers(toHeaders(mediaFileResource))
+                        .body(mediaFileResource.getResource()))
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @SneakyThrows
+    private HttpHeaders toHeaders(FileService.MediaFileResource mediaFileResource) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(mediaFileResource.getMedia().getMediaType());
+        return headers;
     }
 }
