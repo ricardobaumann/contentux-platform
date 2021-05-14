@@ -36,7 +36,6 @@ public class Media extends Audit {
     @Type(type = "com.github.ricardobaumann.contentuxplatform.entity.MediaStringType")
     private MediaType mediaType;
 
-    @NotEmpty
     @Column(name = "file_path")
     private String filePath;
 
