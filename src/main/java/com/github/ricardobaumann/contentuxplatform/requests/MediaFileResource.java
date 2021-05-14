@@ -7,15 +7,16 @@
 
 package com.github.ricardobaumann.contentuxplatform.requests;
 
+import com.github.ricardobaumann.contentuxplatform.entity.Media;
 import lombok.Value;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.validation.constraints.NotNull;
+import org.springframework.core.io.Resource;
 
 @Value
-public class FileUploadRequest {
-    @NotNull
-    MultipartFile file;
-    @NotNull
-    Long mediaId;
+public class MediaFileResource {
+    Resource resource;
+    Media media;
+
+    public boolean hasFile() {
+        return resource != null;
+    }
 }

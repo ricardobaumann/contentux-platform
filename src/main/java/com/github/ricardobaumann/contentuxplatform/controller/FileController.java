@@ -8,6 +8,7 @@
 package com.github.ricardobaumann.contentuxplatform.controller;
 
 import com.github.ricardobaumann.contentuxplatform.requests.FileUploadRequest;
+import com.github.ricardobaumann.contentuxplatform.requests.MediaFileResource;
 import com.github.ricardobaumann.contentuxplatform.service.FileService;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
@@ -39,7 +40,7 @@ public class FileController {
     @GetMapping
     public ResponseEntity<Resource> getFile(@PathVariable Long mediaId) {
         return fileService.getFileResource(mediaId)
-                .filter(FileService.MediaFileResource::hasFile)
+                .filter(MediaFileResource::hasFile)
                 .map(mediaFileResource -> ResponseEntity.ok()
                         .headers(toHeaders(mediaFileResource))
                         .body(mediaFileResource.getResource()))
@@ -47,7 +48,7 @@ public class FileController {
     }
 
     @SneakyThrows
-    private HttpHeaders toHeaders(FileService.MediaFileResource mediaFileResource) {
+    private HttpHeaders toHeaders(MediaFileResource mediaFileResource) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(mediaFileResource.getMedia().getMediaType());
         return headers;

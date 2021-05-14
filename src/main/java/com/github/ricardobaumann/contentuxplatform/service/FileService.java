@@ -13,15 +13,15 @@ import com.github.ricardobaumann.contentuxplatform.exceptions.MediaNotFoundExcep
 import com.github.ricardobaumann.contentuxplatform.repos.FileRepository;
 import com.github.ricardobaumann.contentuxplatform.repos.MediaRepository;
 import com.github.ricardobaumann.contentuxplatform.requests.FileUploadRequest;
+import com.github.ricardobaumann.contentuxplatform.requests.MediaFileResource;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import lombok.AllArgsConstructor;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Slf4j
@@ -32,7 +32,7 @@ public class FileService {
     private final FileRepository fileRepository;
     private final MediaRepository mediaRepository;
 
-    public Either<FileUploadException, Media> upload(FileUploadRequest fileUploadRequest) {
+    public Either<FileUploadException, Media> upload(@Valid FileUploadRequest fileUploadRequest) {
         return mediaRepository.findById(fileUploadRequest.getMediaId())
                 .map(media -> fileRepository.writeFile(fileUploadRequest)
                         .map(fileWriteResult -> {
@@ -58,13 +58,4 @@ public class FileService {
                 ));
     }
 
-    @Value
-    public static class MediaFileResource {
-        Resource resource;
-        Media media;
-
-        public boolean hasFile() {
-            return resource != null;
-        }
-    }
 }
