@@ -25,6 +25,7 @@ import java.util.Set;
 @Table(name = "media")
 @EqualsAndHashCode(of = "id", callSuper = false)
 @EntityListeners(AuditingEntityListener.class)
+@NamedEntityGraph(name = "Media.tags", attributeNodes = @NamedAttributeNode("tags"))
 public class Media extends Audit {
 
     @Id
@@ -44,7 +45,7 @@ public class Media extends Audit {
 
     private String description;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection
     @CollectionTable(name = "media_tags", joinColumns = @JoinColumn(name = "media_id"))
     @Column(name = "tag")
     private Set<String> tags;

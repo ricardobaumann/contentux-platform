@@ -8,9 +8,20 @@
 package com.github.ricardobaumann.contentuxplatform.repos;
 
 import com.github.ricardobaumann.contentuxplatform.entity.Media;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
+import java.util.Optional;
+
 @RepositoryRestResource
 public interface MediaRepository extends CrudRepository<Media, Long> {
+
+    @Override
+    @EntityGraph(value = "Media.tags")
+    Optional<Media> findById(Long id);
+
+    @Override
+    @EntityGraph(value = "Media.tags")
+    Iterable<Media> findAll();
 }
