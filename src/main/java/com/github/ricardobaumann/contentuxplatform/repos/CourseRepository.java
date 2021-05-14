@@ -14,7 +14,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.Optional;
 
-@RepositoryRestResource
+@RepositoryRestResource(excerptProjection = CourseExcerpt.class)
 public interface CourseRepository extends CrudRepository<Course, Long> {
 
     @Override
