@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package com.github.ricardobaumann.contentuxplatform.controller;
+package com.github.ricardobaumann.contentuxplatform.repos;
 
 import com.github.ricardobaumann.contentuxplatform.entity.User;
 import org.springframework.data.repository.CrudRepository;
