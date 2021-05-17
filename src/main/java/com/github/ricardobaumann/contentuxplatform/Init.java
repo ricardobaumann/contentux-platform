@@ -46,7 +46,7 @@ public class Init implements CommandLineRunner {
 
         userRepository.save(
                 User.builder()
-                        .roles(Set.of("admin", "user"))
+                        .roles(Set.of("platform_admin", "user"))
                         .password("test")
                         .username("test-user")
                         .account(accountRepository.findAll().iterator().next())
