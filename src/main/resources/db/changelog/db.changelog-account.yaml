@@ -52,5 +52,20 @@ databaseChangeLog:
                   name: account_id
             indexName: idx_user_account
             tableName: platform_user
+  - changeSet:
+      id: course_account_column
+      author: rick
+      changes:
+        - addColumn:
+            tableName: course
+            columns:
+              name: account_code
+              type: varchar(100)
+        - createIndex:
+            columns:
+              - column:
+                  name: account_code
+            indexName: idx_course_account
+            tableName: course
 
 

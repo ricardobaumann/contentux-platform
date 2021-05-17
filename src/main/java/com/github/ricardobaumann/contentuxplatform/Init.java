@@ -57,14 +57,19 @@ public class Init implements CommandLineRunner {
         courseRepository.deleteAll();
         courseClassRepository.deleteAll();
 
-        courseClassRepository.save(CourseClass.builder()
-                .body("some body")
-                .title("x men first class")
-                .build());
+        courseClassRepository.save(
+                CourseClass.builder()
+                        .body("some body")
+                        .title("x men first class")
+                        .build());
 
-        courseRepository.save(Course.builder()
-                .title("first course")
-                .build()
+        courseRepository.save(
+                Course.builder()
+                        .title("first course")
+                        .accountCode(
+                                accountRepository.findAll().iterator().next().getAccountCode()
+                        )
+                        .build()
         );
 
         courseRepository.findAll()
