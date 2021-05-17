@@ -12,6 +12,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.data.rest.core.annotation.RestResource;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Data
@@ -23,7 +24,10 @@ import java.util.Set;
 @EqualsAndHashCode(of = "id", callSuper = false)
 @EntityListeners(AuditingEntityListener.class)
 @NamedEntityGraph(name = "Course.dep",
-        attributeNodes = {@NamedAttributeNode("tags"), @NamedAttributeNode("courseClasses")})
+        attributeNodes = {
+                @NamedAttributeNode("tags"),
+                @NamedAttributeNode("courseClasses")
+        })
 public class Course extends Audit {
 
     @Id
@@ -33,7 +37,10 @@ public class Course extends Audit {
     private String title;
 
     @ElementCollection
-    @CollectionTable(name = "course_tags", joinColumns = @JoinColumn(name = "course_id"))
+    @CollectionTable(
+            name = "course_tags",
+            joinColumns = @JoinColumn(name = "course_id")
+    )
     @Column(name = "tag")
     private Set<String> tags;
 
@@ -44,5 +51,9 @@ public class Course extends Audit {
             joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "course_class_id"))
     private Set<CourseClass> courseClasses;
+
+    @NotNull
+    @Column(name = "account_code")
+    private String accountCode;
 
 }

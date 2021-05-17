@@ -25,6 +25,8 @@ import java.util.Set;
 @Table(name = "platform_user")
 @EqualsAndHashCode(of = "id", callSuper = false)
 @EntityListeners(AuditingEntityListener.class)
+@NamedEntityGraph(name = "User.dep",
+        attributeNodes = {@NamedAttributeNode("account")})
 public class User extends Audit {
 
     @Id
@@ -45,8 +47,15 @@ public class User extends Audit {
 
     @PrePersist
     public void prePersist() {
-        setPassword(Base64.getEncoder().encodeToString(getPassword().getBytes(StandardCharsets.UTF_8)));
+        setPassword(Base64.getEncoder()
+                .encodeToString(getPassword()
+                        .getBytes(StandardCharsets.UTF_8)));
     }
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private Account account;
 
     public boolean passwordEqualTo(String password) {
         return Base64.getEncoder().encodeToString(

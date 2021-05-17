@@ -7,14 +7,8 @@
 
 package com.github.ricardobaumann.contentuxplatform;
 
-import com.github.ricardobaumann.contentuxplatform.entity.Course;
-import com.github.ricardobaumann.contentuxplatform.entity.CourseClass;
-import com.github.ricardobaumann.contentuxplatform.entity.Media;
-import com.github.ricardobaumann.contentuxplatform.entity.User;
-import com.github.ricardobaumann.contentuxplatform.repos.CourseClassRepository;
-import com.github.ricardobaumann.contentuxplatform.repos.CourseRepository;
-import com.github.ricardobaumann.contentuxplatform.repos.MediaRepository;
-import com.github.ricardobaumann.contentuxplatform.repos.UserRepository;
+import com.github.ricardobaumann.contentuxplatform.entity.*;
+import com.github.ricardobaumann.contentuxplatform.repos.*;
 import com.github.ricardobaumann.contentuxplatform.service.AuthService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +16,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.Set;
+import java.util.UUID;
 
 @Slf4j
 @Component
@@ -34,30 +30,46 @@ public class Init implements CommandLineRunner {
     private final UserRepository userRepository;
     private final MediaRepository mediaRepository;
     private final AuthService authService;
+    private final AccountRepository accountRepository;
 
     @Override
+    @Transactional
     public void run(String... args) {
 
         userRepository.deleteAll();
-        userRepository.save(User.builder()
-                .roles(Set.of("admin", "user"))
-                .password("test")
-                .username("test-user")
+        accountRepository.deleteAll();
+
+        accountRepository.save(Account.builder()
+                .accountCode(UUID.randomUUID().toString())
+                .accountName("test-account")
                 .build());
+
+        userRepository.save(
+                User.builder()
+                        .roles(Set.of("platform_admin", "user"))
+                        .password("test")
+                        .username("test-user")
+                        .account(accountRepository.findAll().iterator().next())
+                        .build());
 
         log.info("token: {}", authService.getBearerTokenFor(new AuthService.GetTokenRequest("test-user", "test")));
 
         courseRepository.deleteAll();
         courseClassRepository.deleteAll();
 
-        courseClassRepository.save(CourseClass.builder()
-                .body("some body")
-                .title("x men first class")
-                .build());
+        courseClassRepository.save(
+                CourseClass.builder()
+                        .body("some body")
+                        .title("x men first class")
+                        .build());
 
-        courseRepository.save(Course.builder()
-                .title("first course")
-                .build()
+        courseRepository.save(
+                Course.builder()
+                        .title("first course")
+                        .accountCode(
+                                accountRepository.findAll().iterator().next().getAccountCode()
+                        )
+                        .build()
         );
 
         courseRepository.findAll()

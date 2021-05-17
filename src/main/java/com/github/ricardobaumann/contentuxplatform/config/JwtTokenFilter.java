@@ -71,7 +71,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             @Override
             public Collection<? extends GrantedAuthority> getAuthorities() {
                 return user.getRoles()
-                        .stream().map(SimpleGrantedAuthority::new)
+                        .stream()
+                        .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
             }
 
