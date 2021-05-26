@@ -7,9 +7,9 @@
 
 package com.github.ricardobaumann.contentuxplatform.commands;
 
-import lombok.Data;
+import lombok.Value;
 
-@Data
+@Value
 public class CreateUserResponse {
     private Long id;
     private String username;

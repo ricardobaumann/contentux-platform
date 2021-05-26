@@ -10,7 +10,6 @@ package com.github.ricardobaumann.contentuxplatform.service;
 import com.github.ricardobaumann.contentuxplatform.commands.CreateUserResponse;
 import com.github.ricardobaumann.contentuxplatform.entity.Account;
 import com.github.ricardobaumann.contentuxplatform.entity.User;
-import com.github.ricardobaumann.contentuxplatform.mapper.UserMapper;
 import com.github.ricardobaumann.contentuxplatform.repos.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,17 +24,21 @@ import java.util.UUID;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final UserMapper userMapper;
 
     public CreateUserResponse createAccountRootUserFor(Account account) {
-        User user = User.builder()
-                .account(account)
-                .password(UUID.randomUUID().toString())
-                .username(account.getAccountCode())
-                .roles(Set.of("account_root", "account_admin"))
-                .build();
-        user.setPassword(UUID.randomUUID().toString());
-        return userMapper.toCreateResponse(userRepository.save(user));
+        String password = UUID.randomUUID().toString()
+                .replaceAll("\\-", "");
+        
+        User user = userRepository.save(
+                User.builder()
+                        .account(account)
+                        .password(password)
+                        .username(account.getAccountCode())
+                        .roles(Set.of("account_root", "account_admin", "user"))
+                        .password(password)
+                        .build()
+        );
+        return new CreateUserResponse(user.getId(), user.getUsername(), password);
     }
 
 }

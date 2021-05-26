@@ -7,12 +7,9 @@
 
 package com.github.ricardobaumann.contentuxplatform.mapper;
 
-import com.github.ricardobaumann.contentuxplatform.commands.CreateUserResponse;
-import com.github.ricardobaumann.contentuxplatform.entity.User;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    CreateUserResponse toCreateResponse(User user);
 }
