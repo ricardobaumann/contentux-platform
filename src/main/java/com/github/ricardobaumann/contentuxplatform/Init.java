@@ -76,8 +76,8 @@ public class Init implements CommandLineRunner {
         courseRepository.save(
                 Course.builder()
                         .title("first course")
-                        .accountCode(
-                                accountRepository.findAll().iterator().next().getAccountCode()
+                        .account(
+                                accountRepository.findAll().iterator().next()
                         )
                         .build()
         );
