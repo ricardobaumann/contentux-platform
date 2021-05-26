@@ -26,7 +26,7 @@ import java.util.Set;
 @EqualsAndHashCode(of = "id", callSuper = false)
 @EntityListeners(AuditingEntityListener.class)
 @NamedEntityGraph(name = "User.dep",
-        attributeNodes = {@NamedAttributeNode("account")})
+        attributeNodes = {@NamedAttributeNode("account"), @NamedAttributeNode("roles")})
 public class User extends Audit {
 
     @Id

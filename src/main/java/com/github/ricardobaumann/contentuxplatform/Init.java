@@ -52,7 +52,17 @@ public class Init implements CommandLineRunner {
                         .account(accountRepository.findAll().iterator().next())
                         .build());
 
-        log.info("token: {}", authService.getBearerTokenFor(new AuthService.GetTokenRequest("test-user", "test")));
+        log.info("admin user token: {}", authService.getBearerTokenFor(new AuthService.GetTokenRequest("test-user", "test")));
+
+        userRepository.save(
+                User.builder()
+                        .roles(Set.of("user"))
+                        .password("test")
+                        .username("test-simple-user")
+                        .account(accountRepository.findAll().iterator().next())
+                        .build());
+
+        log.info("simple user token: {}", authService.getBearerTokenFor(new AuthService.GetTokenRequest("test-simple-user", "test")));
 
         courseRepository.deleteAll();
         courseClassRepository.deleteAll();
