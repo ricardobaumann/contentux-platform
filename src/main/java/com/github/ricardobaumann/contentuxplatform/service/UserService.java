@@ -16,6 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Slf4j
@@ -31,6 +32,7 @@ public class UserService {
                 .account(account)
                 .password(UUID.randomUUID().toString())
                 .username(account.getAccountCode())
+                .roles(Set.of("account_root", "account_admin"))
                 .build();
         user.setPassword(UUID.randomUUID().toString());
         return userMapper.toCreateResponse(userRepository.save(user));
