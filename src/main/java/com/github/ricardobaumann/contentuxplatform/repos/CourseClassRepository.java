@@ -13,6 +13,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
 public interface CourseClassRepository extends CrudRepository<CourseClass, Long> {
-    
 
 }

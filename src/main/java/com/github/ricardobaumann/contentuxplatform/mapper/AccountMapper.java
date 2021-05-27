@@ -8,6 +8,7 @@
 package com.github.ricardobaumann.contentuxplatform.mapper;
 
 import com.github.ricardobaumann.contentuxplatform.commands.CreateAccountCommand;
+import com.github.ricardobaumann.contentuxplatform.commands.GetAccountResponse;
 import com.github.ricardobaumann.contentuxplatform.entity.Account;
 import org.mapstruct.Mapper;
 
@@ -15,5 +16,6 @@ import org.mapstruct.Mapper;
 public interface AccountMapper {
 
     Account toAccount(CreateAccountCommand createAccountCommand);
-    
+
+    GetAccountResponse toGetResponse(Account account);
 }

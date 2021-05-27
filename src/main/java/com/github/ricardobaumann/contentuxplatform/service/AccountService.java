@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -34,6 +35,10 @@ public class AccountService {
         Account account = accountRepository.save(accountMapper.toAccount(createAccountCommand));
         CreateUserResponse createUserResponse = userService.createAccountRootUserFor(account);
         return new CreateAccountResponse(account.getId(), createUserResponse);
+    }
+
+    public Optional<Account> getById(Long id) {
+        return accountRepository.findById(id);
     }
 
 }

@@ -20,6 +20,7 @@ import java.util.Set;
 @Data
 @Entity
 @Builder
+@ToString(exclude = "password")
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "platform_user")
@@ -52,7 +53,6 @@ public class User extends Audit {
                         .getBytes(StandardCharsets.UTF_8)));
     }
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;

@@ -28,7 +28,7 @@ public class UserService {
     public CreateUserResponse createAccountRootUserFor(Account account) {
         String password = UUID.randomUUID().toString()
                 .replaceAll("\\-", "");
-        
+
         User user = userRepository.save(
                 User.builder()
                         .account(account)
