@@ -55,9 +55,7 @@ public class Course extends Audit {
 
     @NotNull
     @ManyToOne
-    @RestResource
     @JoinColumn(name = "account_id")
     private Account account;
-
 
 }

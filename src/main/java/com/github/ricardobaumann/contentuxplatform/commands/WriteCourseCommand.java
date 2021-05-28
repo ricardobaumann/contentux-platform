@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Data
-public class CreateCourseCommand {
+public class WriteCourseCommand {
     @NotEmpty
     private String title;
     private Set<String> tags;

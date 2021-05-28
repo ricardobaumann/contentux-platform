@@ -7,7 +7,7 @@
 
 package com.github.ricardobaumann.contentuxplatform.service;
 
-import com.github.ricardobaumann.contentuxplatform.commands.CreateCourseCommand;
+import com.github.ricardobaumann.contentuxplatform.commands.WriteCourseCommand;
 import com.github.ricardobaumann.contentuxplatform.entity.Course;
 import com.github.ricardobaumann.contentuxplatform.exceptions.CourseNotFoundException;
 import com.github.ricardobaumann.contentuxplatform.exceptions.PlatformAccountNotFoundException;
@@ -26,7 +26,7 @@ public class CourseService {
     private final CourseRepository courseRepository;
     private final AccountService accountService;
 
-    public Course create(@Valid CreateCourseCommand command) {
+    public Course create(@Valid WriteCourseCommand command) {
         return courseRepository.save(
                 Course.builder()
                         .account(accountService.getByAccountCode(command.getAccountCode())
@@ -40,5 +40,11 @@ public class CourseService {
     public Course getByIdOrFail(Long id) {
         return courseRepository.findById(id)
                 .orElseThrow(() -> new CourseNotFoundException(id));
+    }
+
+    public Course update(Course course, WriteCourseCommand command) {
+
+
+        return course;
     }
 }

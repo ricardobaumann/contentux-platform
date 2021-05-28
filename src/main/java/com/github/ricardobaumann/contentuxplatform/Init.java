@@ -7,7 +7,6 @@
 
 package com.github.ricardobaumann.contentuxplatform;
 
-import com.github.ricardobaumann.contentuxplatform.entity.User;
 import com.github.ricardobaumann.contentuxplatform.repos.*;
 import com.github.ricardobaumann.contentuxplatform.service.AuthService;
 import lombok.AllArgsConstructor;
@@ -16,8 +15,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
-import java.util.Set;
-import java.util.UUID;
 
 @Slf4j
 @Component
@@ -37,14 +34,14 @@ public class Init implements CommandLineRunner {
 
         //userRepository.deleteAll();
 
-        User admin = userRepository.save(
+        /*User admin = userRepository.save(
                 User.builder()
                         .roles(Set.of("platform_admin", "user"))
                         .password("test")
                         .username("test-user-" + UUID.randomUUID())
                         .build());
 
-        log.info("admin user token: {}", authService.getBearerTokenFor(new AuthService.GetTokenRequest(admin.getUsername(), "test")));
+        log.info("admin user token: {}", authService.getBearerTokenFor(new AuthService.GetTokenRequest(admin.getUsername(), "test")));*/
 
     }
     /*
