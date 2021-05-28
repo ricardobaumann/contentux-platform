@@ -7,8 +7,38 @@
 
 package com.github.ricardobaumann.contentuxplatform.service;
 
+import com.github.ricardobaumann.contentuxplatform.commands.CreateCourseCommand;
+import com.github.ricardobaumann.contentuxplatform.entity.Course;
+import com.github.ricardobaumann.contentuxplatform.exceptions.CourseNotFoundException;
+import com.github.ricardobaumann.contentuxplatform.exceptions.PlatformAccountNotFoundException;
+import com.github.ricardobaumann.contentuxplatform.repos.CourseRepository;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
+
+@Slf4j
 @Service
+@AllArgsConstructor
 public class CourseService {
+
+    private final CourseRepository courseRepository;
+    private final AccountService accountService;
+
+    public Course create(@Valid CreateCourseCommand command) {
+        return courseRepository.save(
+                Course.builder()
+                        .account(accountService.getByAccountCode(command.getAccountCode())
+                                .orElseThrow(() -> new PlatformAccountNotFoundException(
+                                        command.getAccountCode())))
+                        .tags(command.getTags())
+                        .title(command.getTitle())
+                        .build());
+    }
+
+    public Course getByIdOrFail(Long id) {
+        return courseRepository.findById(id)
+                .orElseThrow(() -> new CourseNotFoundException(id));
+    }
 }

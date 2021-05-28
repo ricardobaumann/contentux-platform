@@ -9,9 +9,12 @@ package com.github.ricardobaumann.contentuxplatform.commands;
 
 import lombok.Data;
 
+import java.util.Set;
+
 @Data
-public class GetAccountResponse {
+public class CourseData {
     private Long id;
+    private String title;
+    private Set<String> tags;
     private String accountCode;
-    private String accountName;
 }

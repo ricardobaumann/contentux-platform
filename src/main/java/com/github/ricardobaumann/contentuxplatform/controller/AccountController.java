@@ -7,15 +7,15 @@
 
 package com.github.ricardobaumann.contentuxplatform.controller;
 
+import com.github.ricardobaumann.contentuxplatform.authorization.AccountRead;
+import com.github.ricardobaumann.contentuxplatform.commands.AccountData;
 import com.github.ricardobaumann.contentuxplatform.commands.CreateAccountCommand;
 import com.github.ricardobaumann.contentuxplatform.commands.CreateAccountResponse;
-import com.github.ricardobaumann.contentuxplatform.commands.GetAccountResponse;
 import com.github.ricardobaumann.contentuxplatform.entity.AuthenticatedUser;
 import com.github.ricardobaumann.contentuxplatform.mapper.AccountMapper;
 import com.github.ricardobaumann.contentuxplatform.service.AccountService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -36,19 +36,16 @@ public class AccountController {
         return accountService.createAccount(createAccountCommand);
     }
 
+    @AccountRead
     @GetMapping("/accounts/{id}")
-    @PostAuthorize(
-            "hasAuthority('platform_admin') or " +
-                    "(hasAuthority('account_admin') " +
-                    "   and returnObject.accountCode == authentication.principal.account.accountCode)")
-    public GetAccountResponse getAccount(@PathVariable Long id,
-                                         @AuthenticationPrincipal AuthenticatedUser user) {
+    public AccountData getAccount(@PathVariable Long id,
+                                  @AuthenticationPrincipal AuthenticatedUser user) {
         log.info("auth user: {}", user);
         return accountService.getById(id)
                 .map(accountMapper::toGetResponse)
-                .map(getAccountResponse -> {
-                    log.info("account: {}", getAccountResponse);
-                    return getAccountResponse;
+                .map(accountData -> {
+                    log.info("account: {}", accountData);
+                    return accountData;
                 })
                 .orElse(null);
     }

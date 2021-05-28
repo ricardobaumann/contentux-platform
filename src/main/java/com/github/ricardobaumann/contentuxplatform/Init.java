@@ -13,13 +13,14 @@ import com.github.ricardobaumann.contentuxplatform.service.AuthService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 import java.util.Set;
 import java.util.UUID;
 
 @Slf4j
-//@Component
+@Component
 @AllArgsConstructor
 public class Init implements CommandLineRunner {
 
@@ -34,7 +35,7 @@ public class Init implements CommandLineRunner {
     @Transactional
     public void run(String... args) {
 
-        userRepository.deleteAll();
+        //userRepository.deleteAll();
 
         User admin = userRepository.save(
                 User.builder()

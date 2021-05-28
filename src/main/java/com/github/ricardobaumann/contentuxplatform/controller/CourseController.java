@@ -7,14 +7,16 @@
 
 package com.github.ricardobaumann.contentuxplatform.controller;
 
+import com.github.ricardobaumann.contentuxplatform.authorization.AccountRead;
+import com.github.ricardobaumann.contentuxplatform.authorization.AccountWrite;
+import com.github.ricardobaumann.contentuxplatform.commands.CourseData;
 import com.github.ricardobaumann.contentuxplatform.commands.CreateCourseCommand;
 import com.github.ricardobaumann.contentuxplatform.commands.CreateCourseResponse;
+import com.github.ricardobaumann.contentuxplatform.mapper.CourseMapper;
 import com.github.ricardobaumann.contentuxplatform.service.CourseService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -22,12 +24,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class CourseController {
 
     private final CourseService courseService;
+    private final CourseMapper courseMapper;
 
-    @CanWriteOnAccount
+    @AccountWrite
     @PostMapping("/courses")
     public CreateCourseResponse create(@RequestBody CreateCourseCommand command) {
         log.info("create course: {}", command);
-        return null;
+        return courseMapper.toResponse(courseService.create(command));
     }
 
+    @AccountRead
+    @GetMapping("/courses")
+    public CourseData get(@PathVariable Long id) {
+        return courseMapper.toCourseResponse(courseService.getByIdOrFail(id));
+    }
+    
 }

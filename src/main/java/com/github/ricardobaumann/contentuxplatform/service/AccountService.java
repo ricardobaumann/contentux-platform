@@ -41,4 +41,7 @@ public class AccountService {
         return accountRepository.findById(id);
     }
 
+    public Optional<Account> getByAccountCode(String account) {
+        return accountRepository.findByAccountCode(account);
+    }
 }

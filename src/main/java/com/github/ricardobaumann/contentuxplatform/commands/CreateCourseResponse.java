@@ -7,5 +7,13 @@
 
 package com.github.ricardobaumann.contentuxplatform.commands;
 
+import lombok.Data;
+
+import java.util.Set;
+
+@Data
 public class CreateCourseResponse {
+    private Long id;
+    private String title;
+    private Set<String> tags;
 }

@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package com.github.ricardobaumann.contentuxplatform.controller;
+package com.github.ricardobaumann.contentuxplatform.authorization;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 
@@ -15,10 +15,10 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
-@PreAuthorize(CanWriteOnAccount.IS_COMMAND_ALLOWED)
-public @interface CanWriteOnAccount {
+@PreAuthorize(AccountWrite.IS_COMMAND_ALLOWED)
+public @interface AccountWrite {
     String IS_COMMAND_ALLOWED = "hasAuthority('platform_admin') " +
             "   or " +
             "   (hasAuthority('account_admin') " +
-            "   and authentication.principal.account.id == #command.account)";
+            "   and authentication.principal.account.accountCode == #command.accountCode)";
 }
