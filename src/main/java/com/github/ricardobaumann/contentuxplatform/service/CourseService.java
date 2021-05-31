@@ -47,4 +47,9 @@ public class CourseService {
 
         return course;
     }
+
+    public Iterable<Course> getAll() {
+        return courseRepository.findAll();
+    }
+
 }

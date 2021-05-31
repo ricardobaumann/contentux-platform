@@ -7,8 +7,10 @@
 
 package com.github.ricardobaumann.contentuxplatform.controller;
 
+import com.github.ricardobaumann.contentuxplatform.authorization.AccountRead;
 import com.github.ricardobaumann.contentuxplatform.authorization.AccountWrite;
 import com.github.ricardobaumann.contentuxplatform.authorization.AuthorizationService;
+import com.github.ricardobaumann.contentuxplatform.authorization.PlatformAdmin;
 import com.github.ricardobaumann.contentuxplatform.commands.CourseData;
 import com.github.ricardobaumann.contentuxplatform.commands.CreateCourseResponse;
 import com.github.ricardobaumann.contentuxplatform.commands.WriteCourseCommand;
@@ -20,6 +22,10 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Slf4j
 @RestController
@@ -37,9 +43,18 @@ public class CourseController {
         return courseMapper.toResponse(courseService.create(command));
     }
 
-    @GetMapping("/courses")
+    @AccountRead//TODO: or student, later on
+    @GetMapping("/courses/{id}")
     public CourseData get(@PathVariable Long id) {
         return courseMapper.toCourseResponse(getById(id));
+    }
+
+    @PlatformAdmin
+    @GetMapping("/courses")
+    public List<CourseData> getAll() {
+        return StreamSupport.stream(courseService.getAll().spliterator(), false)
+                .map(courseMapper::toCourseResponse)
+                .collect(Collectors.toList());
     }
 
     private Course getById(Long id) {

@@ -32,6 +32,10 @@ public class AuthenticatedUser implements UserDetails {
         return null;
     }
 
+    public User getUser() {
+        return user;
+    }
+
     public Account getAccount() {
         return user.getAccount();
     }
