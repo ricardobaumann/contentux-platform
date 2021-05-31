@@ -20,13 +20,14 @@ import java.util.Set;
 @Data
 @Entity
 @Builder
+@ToString(exclude = "password")
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "platform_user")
 @EqualsAndHashCode(of = "id", callSuper = false)
 @EntityListeners(AuditingEntityListener.class)
 @NamedEntityGraph(name = "User.dep",
-        attributeNodes = {@NamedAttributeNode("account")})
+        attributeNodes = {@NamedAttributeNode("account"), @NamedAttributeNode("roles")})
 public class User extends Audit {
 
     @Id
@@ -52,7 +53,6 @@ public class User extends Audit {
                         .getBytes(StandardCharsets.UTF_8)));
     }
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;

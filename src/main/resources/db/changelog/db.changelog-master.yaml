@@ -176,3 +176,5 @@ databaseChangeLog:
       file: db/changelog/db.changelog-media-crud.yaml
   - include:
       file: db/changelog/db.changelog-account.yaml
+  - include:
+      file: db/changelog/db.changelog-account-auth.yaml

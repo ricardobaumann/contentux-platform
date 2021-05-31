@@ -26,7 +26,8 @@ import java.util.Set;
 @NamedEntityGraph(name = "Course.dep",
         attributeNodes = {
                 @NamedAttributeNode("tags"),
-                @NamedAttributeNode("courseClasses")
+                @NamedAttributeNode("courseClasses"),
+                @NamedAttributeNode("account")
         })
 public class Course extends Audit {
 
@@ -53,7 +54,8 @@ public class Course extends Audit {
     private Set<CourseClass> courseClasses;
 
     @NotNull
-    @Column(name = "account_code")
-    private String accountCode;
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private Account account;
 
 }

@@ -10,12 +10,15 @@ package com.github.ricardobaumann.contentuxplatform.repos;
 import com.github.ricardobaumann.contentuxplatform.entity.Course;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@RepositoryRestResource(excerptProjection = CourseExcerpt.class)
+@Repository
 public interface CourseRepository extends CrudRepository<Course, Long> {
+
+    @Override
+    Course save(Course entity);
 
     @Override
     @EntityGraph(value = "Course.dep")

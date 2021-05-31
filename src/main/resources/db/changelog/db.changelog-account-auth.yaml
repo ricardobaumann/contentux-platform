@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: course_account
+      author: rick
+      changes:
+        - addColumn:
+            tableName: course
+            columns:
+              name: account_id
+              type: integer
+              constraints:
+                - references: "platform_account(id)"
+                - foreignKeyName: "fk-course-account"
+        - createIndex:
+            columns:
+              - column:
+                  name: account_id
+            indexName: idx_course_account_id
+            tableName: course
+        - dropColumn:
+            columns:
+              - column:
+                  name: account_code
+            tableName: course
+
