@@ -32,4 +32,9 @@ public class CourseClass extends Audit {
 
     @NotNull
     private String body;
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private Account account;
 }

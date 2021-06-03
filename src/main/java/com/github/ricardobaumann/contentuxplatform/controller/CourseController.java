@@ -43,7 +43,7 @@ public class CourseController {
         return courseMapper.toResponse(courseService.create(command));
     }
 
-    @AccountRead//TODO: or student, later on
+    @AccountRead
     @GetMapping("/courses/{id}")
     public CourseData get(@PathVariable Long id) {
         return courseMapper.toCourseResponse(getById(id));
