@@ -9,18 +9,9 @@ package com.github.ricardobaumann.contentuxplatform.commands;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import java.util.List;
-import java.util.Set;
-
 @Data
-public class WriteCourseCommand {
-    @NotEmpty
+public class WriteClassCommand {
     private String title;
-    private Set<String> tags;
-    @NotNull
+    private String body;
     private String accountCode;
-    private List<Long> courseClassIds;
-
 }

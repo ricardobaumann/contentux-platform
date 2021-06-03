@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: course_class_account
+      author: rick
+      changes:
+        - addColumn:
+            tableName: course_class
+            columns:
+              name: account_id
+              type: integer
+              constraints:
+                - references: "platform_account(id)"
+                - foreignKeyName: "fk-course-class-account"
+        - createIndex:
+            columns:
+              - column:
+                  name: account_id
+            indexName: idx_class_class_account
+            tableName: course_class
+  - changeSet:
+      id: course_class_account
+      author: rick
+      changes:
+        - addColumn:
+            tableName: media
+            columns:
+              name: account_id
+              type: integer
+              constraints:
+                - references: "platform_account(id)"
+                - foreignKeyName: "fk-media-account"
+        - createIndex:
+            columns:
+              - column:
+                  name: account_id
+            indexName: idx_media_account
+            tableName: media
+
+

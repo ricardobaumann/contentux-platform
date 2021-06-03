@@ -50,4 +50,9 @@ public class Media extends Audit {
     @Column(name = "tag")
     private Set<String> tags;
 
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private Account account;
+
 }

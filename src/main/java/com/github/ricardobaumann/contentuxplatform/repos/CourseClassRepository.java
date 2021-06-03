@@ -9,9 +9,9 @@ package com.github.ricardobaumann.contentuxplatform.repos;
 
 import com.github.ricardobaumann.contentuxplatform.entity.CourseClass;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.stereotype.Repository;
 
-@RepositoryRestResource
+@Repository
 public interface CourseClassRepository extends CrudRepository<CourseClass, Long> {
 
 }
