@@ -7,7 +7,8 @@
 
 package com.github.ricardobaumann.contentuxplatform.controller;
 
-import com.github.ricardobaumann.contentuxplatform.requests.FileUploadRequest;
+import com.github.ricardobaumann.contentuxplatform.authorization.AuthorizationService;
+import com.github.ricardobaumann.contentuxplatform.commands.MediaData;
 import com.github.ricardobaumann.contentuxplatform.requests.MediaFileResource;
 import com.github.ricardobaumann.contentuxplatform.service.FileService;
 import lombok.AllArgsConstructor;
@@ -19,32 +20,30 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.function.Function;
-
 @Slf4j
 @RestController
 @AllArgsConstructor
-@RequestMapping("/media/{mediaId}/file")
-public class FileController {
+@RequestMapping("/media")
+public class MediaController {
 
     private final FileService fileService;
+    private final AuthorizationService authorizationService;
 
-    @PutMapping
-    public void uploadFile(@RequestParam("file") MultipartFile file, @PathVariable Long mediaId) {
-        fileService.upload(new FileUploadRequest(file, mediaId))
-                .peek(media -> log.info("Media file {} uploaded successfully", media))
-                .peekLeft(e -> log.error("Media file upload failed", e))
-                .getOrElseThrow(Function.identity());
+    @PostMapping
+    public MediaData uploadFile(@RequestParam("file") MultipartFile file,
+                                @RequestHeader Long classId,
+                                @RequestHeader(required = false) String name,
+                                @RequestHeader(required = false) String description,
+                                @RequestHeader(required = false) String tags) {
+
+        //is user authorized to create media on that class?
+        //upload file and create media
+        return new MediaData();
     }
 
-    @GetMapping
-    public ResponseEntity<Resource> getFile(@PathVariable Long mediaId) {
-        return fileService.getFileResource(mediaId)
-                .filter(MediaFileResource::hasFile)
-                .map(mediaFileResource -> ResponseEntity.ok()
-                        .headers(toHeaders(mediaFileResource))
-                        .body(mediaFileResource.getResource()))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    @GetMapping("/{id}")
+    public ResponseEntity<Resource> getFile(@PathVariable Long id) {
+        return null;
     }
 
     @SneakyThrows

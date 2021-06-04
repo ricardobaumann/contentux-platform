@@ -180,3 +180,5 @@ databaseChangeLog:
       file: db/changelog/db.changelog-account-auth.yaml
   - include:
       file: db/changelog/db.changelog-class-media-auth.yaml
+  - include:
+      file: db/changelog/db.changelog-subscription.yaml

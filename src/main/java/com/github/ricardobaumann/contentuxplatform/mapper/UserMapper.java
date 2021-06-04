@@ -7,9 +7,13 @@
 
 package com.github.ricardobaumann.contentuxplatform.mapper;
 
+import com.github.ricardobaumann.contentuxplatform.commands.RegistrationData;
+import com.github.ricardobaumann.contentuxplatform.entity.User;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
+
+    RegistrationData toRegistrationData(User user);
 
 }
