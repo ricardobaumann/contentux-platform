@@ -25,4 +25,12 @@ public class Subscription {
     @NotNull
     @Column(name = "subscription_type")
     private SubscriptionType type = SubscriptionType.MONTHLY;
+
+    //account -> platform_admin
+    //course -> account_admin for write, public for list/search and details. just class title
+    //class -> account_admin for write, account_admin or active user for reading
+    //media -> account_admin for write, account_admin or active user for reading
+
+    //purchase -> if user is purchasing courses, provide /courses/my endpoint
+    //specific annotations to check permissions on purchased resources
 }
