@@ -57,6 +57,9 @@ public class User extends Audit {
     @JoinColumn(name = "account_id")
     private Account account;
 
+    @Embedded
+    private Subscription subscription;
+
     public boolean passwordEqualTo(String password) {
         return Base64.getEncoder().encodeToString(
                 password.getBytes(StandardCharsets.UTF_8))

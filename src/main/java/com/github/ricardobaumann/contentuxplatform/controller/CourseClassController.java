@@ -43,7 +43,7 @@ public class CourseClassController {
     }
 
     @PutMapping("/{id}")
-    public ClassData update(@RequestBody WriteClassCommand writeClassCommand) {
+    public ClassData update(@RequestBody WriteClassCommand command) {
         //get class by id, authorize with service and update
         return new ClassData();
     }

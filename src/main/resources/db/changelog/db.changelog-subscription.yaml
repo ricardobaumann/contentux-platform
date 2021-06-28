@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-subscription
+      author: rick
+      changes:
+        - addColumn:
+            tableName: platform_user
+            columns:
+              name: subscription_status
+              type: varchar(50)
+        - addColumn:
+            tableName: platform_user
+            columns:
+              name: subscription_type
+              type: varchar(50)
+        - createIndex:
+            columns:
+              - column:
+                  name: subscription_status
+            indexName: idx_user_sub_status
+            tableName: platform_user
+        - createIndex:
+            columns:
+              - column:
+                  name: subscription_type
+            indexName: idx_user_sub_type
+            tableName: platform_user
