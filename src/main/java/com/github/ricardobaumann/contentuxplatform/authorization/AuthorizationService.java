@@ -9,9 +9,11 @@ package com.github.ricardobaumann.contentuxplatform.authorization;
 
 import com.github.ricardobaumann.contentuxplatform.entity.AuthenticatedUser;
 import com.github.ricardobaumann.contentuxplatform.entity.Course;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class AuthorizationService {
     public void failIfNotWriteAllowed(Course course, AuthenticatedUser user) {

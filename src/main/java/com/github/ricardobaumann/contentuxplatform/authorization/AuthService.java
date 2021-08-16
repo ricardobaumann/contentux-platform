@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package com.github.ricardobaumann.contentuxplatform.service;
+package com.github.ricardobaumann.contentuxplatform.authorization;
 
 import com.github.ricardobaumann.contentuxplatform.entity.User;
 import com.github.ricardobaumann.contentuxplatform.repos.UserRepository;
@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
 import javax.validation.constraints.NotEmpty;
 import java.util.Optional;
 
-import static com.github.ricardobaumann.contentuxplatform.service.JwtService.CreateTokenRequest;
-import static com.github.ricardobaumann.contentuxplatform.service.JwtService.ParseTokenResponse;
+import static com.github.ricardobaumann.contentuxplatform.authorization.JwtService.CreateTokenRequest;
+import static com.github.ricardobaumann.contentuxplatform.authorization.JwtService.ParseTokenResponse;
 
 @Service
 @AllArgsConstructor

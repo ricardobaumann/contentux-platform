@@ -8,7 +8,7 @@
 package com.github.ricardobaumann.contentuxplatform.controller;
 
 import com.github.ricardobaumann.contentuxplatform.entity.User;
-import com.github.ricardobaumann.contentuxplatform.service.AuthService;
+import com.github.ricardobaumann.contentuxplatform.authorization.AuthService;
 import lombok.AllArgsConstructor;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import static com.github.ricardobaumann.contentuxplatform.service.AuthService.GetTokenRequest;
+import static com.github.ricardobaumann.contentuxplatform.authorization.AuthService.GetTokenRequest;
 
 @Slf4j
 @RestController

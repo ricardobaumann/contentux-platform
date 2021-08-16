@@ -9,7 +9,7 @@ package com.github.ricardobaumann.contentuxplatform.config;
 
 import com.github.ricardobaumann.contentuxplatform.entity.AuthenticatedUser;
 import com.github.ricardobaumann.contentuxplatform.entity.User;
-import com.github.ricardobaumann.contentuxplatform.service.AuthService;
+import com.github.ricardobaumann.contentuxplatform.authorization.AuthService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

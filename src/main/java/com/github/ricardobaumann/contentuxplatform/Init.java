@@ -8,7 +8,7 @@
 package com.github.ricardobaumann.contentuxplatform;
 
 import com.github.ricardobaumann.contentuxplatform.repos.*;
-import com.github.ricardobaumann.contentuxplatform.service.AuthService;
+import com.github.ricardobaumann.contentuxplatform.authorization.AuthService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;

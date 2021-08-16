@@ -31,14 +31,14 @@ public class RegistrationController {
                                                    UriComponentsBuilder b) {
         RegistrationData registrationData = userMapper.toRegistrationData(userService.registerUser(command));
         return ResponseEntity.created(
-                b.path("/registrations/{id}")
-                        .buildAndExpand(
-                                registrationData.getId().toString()).toUri())
+                        b.path("/registrations/{id}")
+                                .buildAndExpand(
+                                        registrationData.getId().toString()).toUri())
                 .body(registrationData);
     }
 
     @GetMapping("/{id}")
-    @PostAuthorize("authentication.principal.id == id")
+    @PostAuthorize("authentication.principal.id == #id")
     public ResponseEntity<RegistrationData> get(@PathVariable Long id) {
         return userService.getById(id)
                 .map(userMapper::toRegistrationData)

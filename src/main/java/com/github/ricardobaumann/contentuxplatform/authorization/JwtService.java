@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package com.github.ricardobaumann.contentuxplatform.service;
+package com.github.ricardobaumann.contentuxplatform.authorization;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
